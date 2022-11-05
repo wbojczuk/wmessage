@@ -1,0 +1,26 @@
+.mail-icon{
+    display: inline-block;
+    position: fixed;
+    right:20px;
+    top:20px;
+    width: 5vw;
+    height: 5vw;
+    background-image: url("../img/mail_icon.svg");
+    background-size: 100%;
+    background-position: center;
+    cursor: pointer;
+}
+
+.mail-icon-hasmail:after{
+    display: inline-block;
+    content: '';
+    position: absolute;
+    width: 1.5vw;
+    height: 1.5vw;
+    background-color: red;
+    border: 0px solid transparent;
+    border-radius: 50%;
+    left: -0.5vw;
+    top:0;
+    filter: blur(2px);
+}

@@ -9,9 +9,23 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/friends.css">
+    <link rel="stylesheet" href="css/mail.css">
 </head>
 <body>
 <?php
+// CREATE FOLDER HEIRARCHY IF NOT CREATED
+if(!file_exists("./data")){
+    mkdir("./data");
+}
+if(!file_exists("./data/friends")){
+    mkdir("./data/friends");
+}
+if(!file_exists("./data/requests")){
+    mkdir("./data/requests");
+}
+if(!file_exists("./data/users.txt")){
+    file_put_contents("./data/users.txt", "");
+}
 
 
 session_start();

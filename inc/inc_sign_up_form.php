@@ -76,6 +76,8 @@
             $new_user = "{$values['Username']}:{$values['First Name']}:{$values['Last Name']}:$hashed_password;";
             file_put_contents("./data/users.txt", $new_user, FILE_APPEND);
             file_put_contents("./data/friends/{$values['Username']}.txt", "");
+            file_put_contents("./data/requests/{$values['Username']}.txt", "");
+            
             
             session_start();
             $_SESSION["user"] = $values['Username'];

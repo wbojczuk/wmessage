@@ -13,7 +13,7 @@ require_once("./inc/inc_user_data.php");
         // ADD NEW FRIENDS
         if(isset($_GET['addfriend'])){
             $add_user = $_GET['addfriend'];
-            add_friend($add_user, $_SESSION["user"]);
+            send_friend_request($add_user, $_SESSION["user"]);
             
         }
             
