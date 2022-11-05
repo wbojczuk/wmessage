@@ -13,6 +13,7 @@
 </head>
 <body>
 <?php
+
 // CREATE FOLDER HEIRARCHY IF NOT CREATED
 if(!file_exists("./data")){
     mkdir("./data");

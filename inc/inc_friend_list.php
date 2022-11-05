@@ -14,7 +14,7 @@ require_once("./inc/inc_user_data.php");
         if(isset($_GET['addfriend'])){
             $add_user = $_GET['addfriend'];
             send_friend_request($add_user, $_SESSION["user"]);
-            
+            header("Location:index.php");
         }
             
             $friends_length = count($friends);

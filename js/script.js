@@ -1,16 +1,11 @@
 const localUserData = userData;
-
 const nonfriendIcons = document.querySelectorAll(".fl-nonfriend");
-
-function vwToPx(num){
-    return ((window.innerWidth * num) / 100);
-}
 const friendExpandedWrapper = document.getElementById("friendExpandedWrapper");
 const friendExpanded = document.getElementById("friendExpanded");
+
 nonfriendIcons.forEach((icon)=>{
     icon.addEventListener("click", (evt)=>{
         // ON ICON CLICK
-        
         const currentUserData = getUserData(evt.target.title);
         friendExpanded.innerHTML = currentUserData[0] + "<br>" + currentUserData[1] + "<br>" + currentUserData[2] + "<br>";
 

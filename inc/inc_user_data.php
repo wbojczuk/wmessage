@@ -1,14 +1,12 @@
 <?php
-
 function send_friend_request($friend, $requester){
     $result = true;
     if(!friend_request_exists($friend, $requester)){
         if(friend_request_exists($requester, $friend)){
             add_friend($requester, $friend);
             add_friend($friend, $requester);
-
-            remove_friend_request($requester, $friend);
             remove_friend_request($friend, $requester);
+            
         }else{
             file_put_contents("./data/requests/$friend.txt", "$requester" . ";", FILE_APPEND);
         }
@@ -20,8 +18,7 @@ function send_friend_request($friend, $requester){
 
 function remove_friend_request($requester, $friend){
     $requests_txt = file_get_contents("./data/requests/$friend.txt");
-    echo $requests_txt;
-    str_replace("$requester;", "", $requests_txt);
+    $requests_txt = str_replace("$requester;", "", $requests_txt);
     file_put_contents("./data/requests/$friend.txt", $requests_txt);
 }
 
