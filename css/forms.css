@@ -1,0 +1,91 @@
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1{
+    width: 100%;
+    text-align: center;
+    font-size: 60px;
+    font-family: monospace;
+    font-weight: 800;
+}
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.errors{
+    margin-top: 20px;
+   display: inline-block;
+    color: red;
+    font-family: monospace;
+    font-size: 20px;
+    
+}
+.errors span{
+    text-align: center;
+   display: block;
+    border-bottom: 1px solid #ccc;
+}
+form{
+    margin-top: 50px;
+    font-size: 25px;
+    padding: 50px;
+    border: 1px solid #ccc;
+}
+label{
+    padding-left: 10px;
+}
+input[type="text"], input[type="password"]{
+    height: 30px;
+    font-size: 30px;
+    width: 200px;
+    
+
+}
+input[type="submit"]{
+    cursor: pointer;
+    margin-top: 20px;
+    width: 150px;
+    height: 30px;
+    font-weight: 600;
+    font-size: 20px;
+}
+.year-img{
+    margin-top: 100px;
+    width: 200px;
+    max-height: 200px;
+}
+.year-text{
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    margin-top: 10px;
+    font-size: 40px;
+}
+.user-stats{
+    position: absolute;
+    bottom: 50px;
+    left:0;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-family: monospace;
+}
+.proc-success{
+position: absolute;
+width: 100vw;
+height: 100vh;
+top:0;
+left:0;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: monospace;
+font-weight: 600;
+font-size: 4vw;
+color: green;
+z-index: -10;
+}
