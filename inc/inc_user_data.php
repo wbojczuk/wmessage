@@ -10,6 +10,7 @@ function remove_friends($user1, $user2){
     $friends_txt = file_get_contents("./data/friends/$user2.txt");
     $friends_txt = str_replace("$user1;", "", $friends_txt);
     file_put_contents("./data/friends/$user2.txt", $friends_txt);
+    
 }
 
 function send_friend_request($friend, $requester){
@@ -19,7 +20,12 @@ function send_friend_request($friend, $requester){
             add_friend($requester, $friend);
             add_friend($friend, $requester);
             remove_friend_request($friend, $requester);
-            
+
+            // CREATE MESSAGE FILE IF NOT CREATED
+        if(!file_exists("./data/messages/{$friend}_{$requester}.txt") || !file_exists("./data/messages/{$requester}_{$friend}.txt")){
+            file_put_contents("./data/messages/{$friend}_{$requester}.txt", "");
+        }
+        
         }else{
             file_put_contents("./data/requests/$friend.txt", "$requester" . ";", FILE_APPEND);
         }

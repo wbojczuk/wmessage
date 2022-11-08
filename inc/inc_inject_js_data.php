@@ -7,4 +7,5 @@
     const currentFriends = <?php echo(json_encode(get_friends($_SESSION['user']), JSON_HEX_TAG)); ?>;
     const friendRequests = <?php echo(json_encode(get_friend_requests($_SESSION['user']), JSON_HEX_TAG)); ?>;
 </script>
-<script src="./js/script.js" defer></script>
+<script src="./js/friend.js" defer></script>
+<script src="./js/messaging.js" defer></script>

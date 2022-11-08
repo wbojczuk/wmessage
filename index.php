@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/friends.css">
     <link rel="stylesheet" href="css/mail.css">
+    <link rel="stylesheet" href="css/messaging.css">
 </head>
 <body>
 <?php
@@ -23,6 +24,9 @@ if(!file_exists("./data/friends")){
 }
 if(!file_exists("./data/requests")){
     mkdir("./data/requests");
+}
+if(!file_exists("./data/messages")){
+    mkdir("./data/messages");
 }
 if(!file_exists("./data/users.txt")){
     file_put_contents("./data/users.txt", "");

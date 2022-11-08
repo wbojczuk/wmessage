@@ -32,7 +32,8 @@ require_once("./inc/inc_user_data.php");
             if($friends_length > 0){
                 $friends_html = "<div class='fl-wrapper'>";
                 for($i = 0; $i < $friends_length; ++$i){
-                    $friends_html .= "<div class='fl-person fl-friend' title='{$friends[$i]}'></div>";
+                    $current_user = get_user($friends[$i]);
+                    $friends_html .= "<div class='fl-person fl-friend' title='{$current_user[1]} {$current_user[2]}' data-title='{$current_user[0]}''></div>";
                     if($i == ($friends_length - 1)){
                         $friends_html .= "</div>";
                     }else if(($i != 0) && (($i % 2) == 0)){
@@ -52,13 +53,15 @@ require_once("./inc/inc_user_data.php");
                 
                 $current_users = get_usernames();
                 $nonfriends = get_nonfriends($friends ,$current_users);
+                
                
                 $nonfriends_length = count($nonfriends);
         
                 if($nonfriends_length > 0){
                     $nonfriends_html = "<div class='fl-wrapper'>";
                     for($i = 0; $i < $nonfriends_length; ++$i){
-                        $nonfriends_html .= "<div class='fl-person fl-nonfriend' title='{$nonfriends[$i]}'></div>";
+                        $current_user = get_user($nonfriends[$i]);
+                        $nonfriends_html .= "<div class='fl-person fl-nonfriend' title='{$current_user[1]} {$current_user[2]}' data-title='{$current_user[0]}'></div>";
                         if($i == ($nonfriends_length - 1)){
                             $nonfriends_html .= "</div>";
                         }else if(($i != 0) && ((($i + 1) % 2) == 0)){

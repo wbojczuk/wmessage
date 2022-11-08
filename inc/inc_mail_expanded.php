@@ -18,7 +18,7 @@
         }else{
             ?>
                 <div class="mail-item">
-                NO FRIEND REQUESTS :(
+                NO ACTIVITY... :(
                 </div>
             <?php
         }

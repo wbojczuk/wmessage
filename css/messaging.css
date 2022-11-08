@@ -1,0 +1,76 @@
+.main-chat-wrapper{
+    
+      
+    display: inline-block;
+    width: 75%;
+    position: absolute;
+    left: 15%;
+    border-left: 2px solid #aaa;
+    border-right: 2px solid #aaa;
+    top:0;
+
+    overflow: hidden;
+    height: 100vh;
+    z-index: -999;
+                                                        
+}
+.wrapper-chats{
+    overflow-y: scroll;
+    max-height: 90%;
+    min-height: 90%;
+    position: relative;
+    top: 100%;
+}
+.chat-wrapper{
+   width: 100%;
+   display: flex;
+   position: relative; 
+   min-height: 100px;
+   
+}
+.chat{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 30%;
+    margin: 10px 0;
+    padding: 10px;
+    min-height: 100px;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    font-size: 1.5vw;
+    
+}
+.chat-user{
+background-color: blue;
+left:60%;
+
+}
+.chat-friend{
+left:10%;
+background-color: green;
+}
+
+.chat-input{
+    position: absolute;
+    width: 90%;
+    height: 10%;
+    bottom: 0;
+    resize: none;
+    left: 100%;
+}
+
+.chat-send-button{
+    width: 10%;
+    position: absolute;
+    bottom:0;
+    height: 10.2%;
+    cursor: pointer;
+    right: 100%;
+    
+}
+
+#chatForm{
+    
+}
