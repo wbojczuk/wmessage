@@ -31,6 +31,11 @@
                                 $values[$key] = "";
                             }
                         break;
+                        case "confpass":
+                            if(($values[$key] !== $values["Password"])){
+                                $errors[] = "Passwords Do Not Match!";
+                            }
+                        break;
 
                     }
                 }else{
@@ -47,11 +52,11 @@
                 "First Name" => trim($_POST["fName"]),
                 "Last Name" => trim($_POST["lName"]),
                 "Username" => trim($_POST["username"]),
-                "Password" => trim($_POST["password"])
+                "Password" => trim($_POST["password"]),
+                "Confirm Password" => trim($_POST["confirmpassword"])
             );
 
-            $user_data = get_user_data();
-            if(user_exists($values["Username"],$user_data) === true){
+            if(user_exists($values["Username"]) === true){
                 $errors[] = "Username is taken!";
             }
 
@@ -59,6 +64,7 @@
             validate_input($values, "Last Name", "name", $errors);
             validate_input($values, "Username", "user", $errors);
             validate_input($values, "Password", "pass", $errors);
+            validate_input($values, "Confirm Password", "confpass", $errors);
 
         //    PROCESS OR NO?
         if(count($errors) == 0){
@@ -79,14 +85,19 @@
                 <h1 style=" margin-top: 10vh;">Sign Up</h1>
     <div class="center" style="width: 100%; margin-top: 10vh;">
         <form action="./index.php?action=signup" method="POST">
-            <div class="center">
-                <label for="fName">First Name:</label><input value="<?php echo($values["First Name"]); ?>" type="text" name="fName">
-                <label for="lName">Last Name:</label><input value="<?php echo($values["Last Name"]); ?>" type="text" name="lName">
+        
+            <div class="between">
+                <span><label for="username">Username:</label><input value="<?php echo($values["Username"]); ?>" type="text" name="username"></span>
             </div>
             <br>
-            <div class="center">
-                <label for="username">Username:</label><input value="<?php echo($values["Username"]); ?>" type="text" name="username">
-                <label for="password">Password:</label><input value="<?php echo($values["Password"]); ?>" type="password" name="password">
+            <div class="between">
+            <span><label for="fName">First Name:</label><input value="<?php echo($values["First Name"]); ?>" type="text" name="fName"></span>
+            <span><label for="lName">Last Name:</label><input value="<?php echo($values["Last Name"]); ?>" type="text" name="lName"></span>
+            </div>
+            <br>
+            <div class="between">
+                <span><label for="password">Password:</label><input value="<?php echo($values["Password"]); ?>" type="password" name="password"></span>
+                <span><label for="confirmpassword">Confirm Pass:</label><input value="<?php echo($values["Confirm Password"]); ?>" type="password" name="confirmpassword"></span>
             </div>
             <br>
             <div class="center">
@@ -117,15 +128,23 @@
             <h1 style=" margin-top: 10vh;">Sign Up</h1>
     <div class="center" style="width: 100%; margin-top: 10vh;">
         <form action="./index.php?action=signup" method="POST">
-            <div class="center">
-                <label for="fName">First Name:</label><input type="text" name="fName">
-                <label for="lName">Last Name:</label><input type="text" name="lName">
+        
+            <div class="between left">
+                <span>
+            <label for="username">Username:</label><input type="text" name="username">
+            </span>
             </div>
             <br>
-            <div class="center">
-                <label for="username">Username:</label><input type="text" name="username">
-                <label for="password">Password:</label><input type="password" name="password">
+            <div class="between">
+                <span><label for="fName">First Name:</label><input type="text" name="fName"></span>
+                <span><label for="lName">Last Name:</label><input type="text" name="lName"></span>
             </div>
+            <br>
+            <div class="between">
+                <span><label for="password">Password:</label><input type="password" name="password"></span>
+                <span><label for="password">Confirm Pass:</label><input type="password" name="confirmpassword"></span>
+            </div>
+            
             <br>
             <div class="center">
             <input type="submit" name="submit" value="Sign Up!">

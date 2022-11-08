@@ -1,4 +1,17 @@
 <?php
+// FRIENDS FUNCTIONS
+$user_data = get_user_data();
+
+function remove_friends($user1, $user2){
+    $friends_txt = file_get_contents("./data/friends/$user1.txt");
+    $friends_txt = str_replace("$user2;", "", $friends_txt);
+    file_put_contents("./data/friends/$user1.txt", $friends_txt);
+
+    $friends_txt = file_get_contents("./data/friends/$user2.txt");
+    $friends_txt = str_replace("$user1;", "", $friends_txt);
+    file_put_contents("./data/friends/$user2.txt", $friends_txt);
+}
+
 function send_friend_request($friend, $requester){
     $result = true;
     if(!friend_request_exists($friend, $requester)){
@@ -16,10 +29,10 @@ function send_friend_request($friend, $requester){
     return $result;
 }
 
-function remove_friend_request($requester, $friend){
-    $requests_txt = file_get_contents("./data/requests/$friend.txt");
+function remove_friend_request($requester, $user){
+    $requests_txt = file_get_contents("./data/requests/$user.txt");
     $requests_txt = str_replace("$requester;", "", $requests_txt);
-    file_put_contents("./data/requests/$friend.txt", $requests_txt);
+    file_put_contents("./data/requests/$user.txt", $requests_txt);
 }
 
 function friend_request_exists($friend, $requester){
@@ -31,10 +44,10 @@ function friend_request_exists($friend, $requester){
     return $retval;
 }
 
-function get_friend_requests($friend){
+function get_friend_requests($user){
     // Check for friend requests
     $retval = array();
-    $requests_txt = file_get_contents("./data/requests/$friend.txt");
+    $requests_txt = file_get_contents("./data/requests/$user.txt");
     $requests_array = explode(";", $requests_txt);
     if(count($requests_array) > 0){
         array_pop($requests_array);
@@ -42,6 +55,35 @@ function get_friend_requests($friend){
     }
     return $retval;
 }
+function get_friends($requested){
+    $username = $requested;
+    $retval = array();
+    $friends_txt = file_get_contents("./data/friends/$username.txt");
+    $friends_array = explode(";", $friends_txt);
+    if(count($friends_array) > 0){
+        array_pop($friends_array);
+        $retval = $friends_array;
+    }
+    return $retval;
+}
+function get_nonfriends($friends, &$users){
+    $friends[] = $_SESSION["user"];
+    $retval = array();
+    if((count($friends) > 0) && (count($users) > 0)){
+        $retval = array_diff($users, $friends);
+        $retval = array_values($retval);
+    }
+    return $retval;
+}
+function add_friend($new, $requested){
+    $friends = get_friends($requested);
+    if(!in_array($new,$friends)){
+        file_put_contents("./data/friends/$requested.txt", $new . ";", FILE_APPEND);
+    }
+}
+
+
+// OTHER USER DATA FUNCTIONS
 
 function get_user_data(){
     $text_data = file_get_contents("./data/users.txt");
@@ -73,40 +115,22 @@ function get_user_data_nopass(){
     
     return $all_user_data;
 }
-    function get_friends($requested){
-        $username = $requested;
+    
+    function get_usernames(){
         $retval = array();
-        $friends_txt = file_get_contents("./data/friends/$username.txt");
-        $friends_array = explode(";", $friends_txt);
-        if(count($friends_array) > 0){
-            array_pop($friends_array);
-            $retval = $friends_array;
-        }
-        return $retval;
-    }
-    function get_usernames(&$user_data){
-        $retval = array();
-        $user_length = count($user_data);
+        $user_length = count($GLOBALS["user_data"]);
         if($user_length > 0){
             for($i = 0; $i < $user_length; ++$i){
-                $retval[] = $user_data[$i][0];
+                $retval[] = $GLOBALS["user_data"][$i][0];
             }
         }
         return $retval;
     }
-    function get_nonfriends($friends, &$users){
-        $friends[] = $_SESSION["user"];
-        $retval = array();
-        if((count($friends) > 0) && (count($users) > 0)){
-            $retval = array_diff($users, $friends);
-            $retval = array_values($retval);
-        }
-        return $retval;
-    }
+    
 
-    function user_exists($name, &$user_data){
+    function user_exists($name){
         $result = false;
-        foreach($user_data as $user){
+        foreach($GLOBALS["user_data"] as $user){
             if(strtolower($user[0]) == strtolower($name)){
                 $result = true;
                 break;
@@ -115,9 +139,9 @@ function get_user_data_nopass(){
         return $result;
     }
 
-    function get_user($name, &$user_data){
+    function get_user($name){
         $data = array();
-        foreach($user_data as $user){
+        foreach($GLOBALS["user_data"] as $user){
             if(strtolower($user[0]) == strtolower($name)){
                 
             $data = $user;
@@ -127,10 +151,5 @@ function get_user_data_nopass(){
     }
     return $data; 
 }
-function add_friend($new, $requested){
-    $friends = get_friends($requested);
-    if(!in_array($new,$friends)){
-        file_put_contents("./data/friends/$requested.txt", $new . ";", FILE_APPEND);
-    }
-}
+
 ?>

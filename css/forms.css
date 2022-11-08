@@ -3,6 +3,27 @@
     align-items: center;
     justify-content: center;
 }
+.between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.between span{
+    display: inline-flex;
+    width: 50%;
+    justify-content: space-between;
+}
+.between span label{
+    width: 40%;
+    padding-left: 5%;
+    
+}
+.between span input{
+    width: 50%;
+    padding-right: 5%;
+}
+
 
 h1{
     width: 100%;
@@ -35,14 +56,16 @@ form{
     font-size: 25px;
     padding: 50px;
     border: 1px solid #ccc;
+    max-width: 40vw;
 }
 label{
     padding-left: 10px;
+    font-size: 1.3vw;
 }
 input[type="text"], input[type="password"]{
-    height: 30px;
-    font-size: 30px;
-    width: 200px;
+    height: 2vw;
+    font-size: 1.3vw;
+    width: 12vw;
     
 
 }

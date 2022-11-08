@@ -7,6 +7,6 @@
     }
 ?>
 
-<div class="<?php echo($mail_classes); ?>">
+<div id="mailIcon" class="<?php echo($mail_classes); ?>">
 
 </div>

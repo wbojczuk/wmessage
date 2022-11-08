@@ -16,14 +16,13 @@
             if(empty($values["Username"]) || empty($values["Password"])){
                 $errors[] = "Fields cannot be empty!";
             }else{
-                $user_data = get_user_data();
 
-                if(!user_exists($values["Username"], $user_data)){
+                if(!user_exists($values["Username"])){
                     $errors[] = "User does not exist";
                 }else{
                     // Check Password
                     
-                    $current_user = get_user($values["Username"], $user_data);
+                    $current_user = get_user($values["Username"]);
                     $current_password = $current_user[3];
                     $entered_password = hash("sha256", $values["Password"]);
 

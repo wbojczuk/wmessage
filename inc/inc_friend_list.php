@@ -16,6 +16,16 @@ require_once("./inc/inc_user_data.php");
             send_friend_request($add_user, $_SESSION["user"]);
             header("Location:index.php");
         }
+        if(isset($_GET['denyfriend'])){
+            $remove_user = $_GET['denyfriend'];
+            remove_friend_request($remove_user, $_SESSION["user"]);
+            header("Location:index.php");
+        }
+        if(isset($_GET['removefriend'])){
+            $remove_user = $_GET['removefriend'];
+            remove_friends($remove_user, $_SESSION["user"]);
+            header("Location:index.php");
+        }
             
             $friends_length = count($friends);
             
@@ -39,8 +49,8 @@ require_once("./inc/inc_user_data.php");
             <div class="title">People</div>
 
             <?php
-                $current_user_data = get_user_data();
-                $current_users = get_usernames($current_user_data);
+                
+                $current_users = get_usernames();
                 $nonfriends = get_nonfriends($friends ,$current_users);
                
                 $nonfriends_length = count($nonfriends);

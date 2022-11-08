@@ -5,8 +5,8 @@
  *  Version: 1.0
 -->
 <?php
-    //amount to pull coonnecters to lower level items. Different size screens may differ slightly
-    $subdir_margin = "14px";
+    //amount to pull connecters to lower level items. Different size screens may differ slightly
+    $subdir_margin = "13px";
 
     // --- DIRECTORY TO SEACH IN ---
     // IF DIRECTORY IS SET OUT OF THE WEB SERVER, LINKS WILL BE BROKEN
