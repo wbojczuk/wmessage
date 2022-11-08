@@ -52,7 +52,7 @@ friendIcons.forEach((icon)=>{
         const removeText = document.createElement("span");
         removeText.textContent = "Remove Friend";
         const removeImg = document.createElement("img");
-            removeImg.src = "../img/red_exit.svg";
+            removeImg.src = "./img/red_exit.svg";
             removeFriendLink.append(removeImg);
             removeFriendLink.append(removeText);
             friendExpanded.appendChild(removeFriendLink);    
