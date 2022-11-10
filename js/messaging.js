@@ -9,6 +9,7 @@ const messageScript = {
         let currentID;
         let fetchQueued = false;
         let lastMod = null;
+        let fetchUrl;
 
 
         const friendExpandedWrapper = document.getElementById("friendExpandedWrapper");
@@ -25,8 +26,12 @@ const messageScript = {
         }
         
         function openChat(scrollType){
-            let fetchUrl = `data/messages/${requestedUser}_${localCurrentUser}.txt`;
-            CheckFileExist(fetchUrl, scrollType);
+            let sortedUsers = [requestedUser, localCurrentUser];
+            sortedUsers.sort();
+            fetchUrl = `data/messages/${sortedUsers[0]}_${sortedUsers[1]}.txt`;
+            fetch(fetchUrl, {cache: "no-store"})
+                .then((response) => response.text())
+                .then((text) => {getChats(text, scrollType)});
         }
         ;
 
@@ -39,29 +44,7 @@ const messageScript = {
 
         });
 
-        
-let realUrl;
 
-        function CheckFileExist(fetchUrl, scrollType) {
-                fetchQueued = true;
-                fetch(fetchUrl, {method: "HEAD", cache: "no-store"}).then(res => {
-                    if (res.status == 404){
-                        fetchUrl = `data/messages/${localCurrentUser}_${requestedUser}.txt`;
-                        realUrl = fetchUrl;
-                        fetch(fetchUrl, {cache: "no-store"})
-                        .then((response) => response.text())
-                        .then((text) => {getChats(text, scrollType)});
-                    };
-                    if (res.status == 200){
-                        realUrl = fetchUrl;
-                        fetch(fetchUrl, {cache: "no-store"})
-                        .then((response) => response.text())
-                        .then((text) => {getChats(text, scrollType)});};
-                   
-                }) 
-            
-        
-        }
         let currentIDS = [];
         function getChats(chats, scrollType){
             const mainChatWrapper = document.querySelector(".main-chat-wrapper");
@@ -175,7 +158,7 @@ let realUrl;
                 if(refreshCounter == 0 && !fetchQueued){
                     
                     refreshCounter = 1;
-                    lasttMod(realUrl)
+                    lasttMod(fetchUrl)
                     
                     
                 }
