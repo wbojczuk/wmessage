@@ -1,8 +1,10 @@
 <div class="main-chat-wrapper">
+    <div class="close-chat" id="closeChat"></div>
     <div class="wrapper-chats"></div>
     <form id="chatForm" action="index.php" method="POST" style="border:none;width:0px;height:0px;">
+    
         <textarea name="chatInput" id="chatInput" class="chat-input"></textarea>
-        <button class="chat-send-button" id="chatSendButton">Send</button>
+        <button class="chat-send-button" id="chatSendButton"></button>
     </form>
 </div>
 <?php

@@ -6,7 +6,7 @@
 -->
 <?php
     //amount to pull connecters to lower level items. Different size screens may differ slightly
-    $subdir_margin = "13px";
+    $subdir_margin = "12.5px";
 
     // --- DIRECTORY TO SEACH IN ---
     // IF DIRECTORY IS SET OUT OF THE WEB SERVER, LINKS WILL BE BROKEN

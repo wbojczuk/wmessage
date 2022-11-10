@@ -9,6 +9,11 @@
     background-size: 100%;
     background-position: center;
     cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+#mailIcon:hover{
+    transform: rotate(-10deg);
 }
 
 .mail-icon-hasmail:after{
@@ -17,7 +22,7 @@
     position: absolute;
     width: 1.5vw;
     height: 1.5vw;
-    background-color: red;
+    background-color: #8faae5;
     border: 0px solid transparent;
     border-radius: 50%;
     left: -0.5vw;
@@ -45,6 +50,7 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
+    z-index: 40;
     transform: translateY(-100%);
     transition: 1s transform;
     pointer-events: none;
@@ -53,10 +59,12 @@
     display: inline-block;
     width: 50vw;
     height: 25vw;
-    border: 2px solid #aaa;
+    border: 2px solid #4E74C4;
     pointer-events: all;
     overflow-y: scroll;
     overflow-x: hidden;
+    background-color: #051027;
+    color: #cccccc;
 }
 
 .mail-item{
@@ -68,7 +76,8 @@
     font-size: 1.5vw;
     width: 80%;
     height: 3vw;
-    border: 1px solid black;
+    border: 2px solid #4E74C4;
+    border-radius: 10px;
     margin: 5px 5%;
     
 }
@@ -99,7 +108,7 @@
 .mail-item-icon-yes{
     position: absolute;
     top:10%;
-    right:9%;
+    right:10%;
     display: inline-block;
     height: 80%;
     aspect-ratio: 1/1;

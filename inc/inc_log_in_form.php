@@ -9,7 +9,7 @@
            $errors = array();
             // CHECK NAMES
             $values = array(
-                "Username" => trim($_POST["username"]),
+                "Username" => strtolower(trim($_POST["username"])),
                 "Password" => trim($_POST["password"])
             );
 
@@ -70,7 +70,7 @@
         </div>
         </div>
         <div class="center">
-            <a href="./index.php?action=signup">Don't have an account? Sign up!</a>
+            <a class="sign-up-link" href="./index.php?action=signup">Don't have an account? Sign up!</a>
         </div>
     
             <?php
@@ -94,7 +94,7 @@
         </form>
     </div>
     <div class="center">
-            <a href="./index.php?action=signup">Don't have an account? Sign up!</a>
+            <a class="sign-up-link" href="./index.php?action=signup">Don't have an account? Sign up!</a>
         </div>
             
             <?php

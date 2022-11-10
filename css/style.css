@@ -3,3 +3,12 @@
     padding:0;
 }
 
+body{
+    height: 100vh; 
+    background: #141E30;  /* fallback for old browsers */
+    background-image: -webkit-linear-gradient(to right, #030b1b, #17273a, #030b1b);  /* Chrome 10-25, Safari 5.1-6 */
+    background-image: linear-gradient(to right, #030b1b, #17273a, #030b1b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    
+    overflow: hidden;
+}

@@ -51,7 +51,7 @@
             $values = array(
                 "First Name" => trim($_POST["fName"]),
                 "Last Name" => trim($_POST["lName"]),
-                "Username" => trim($_POST["username"]),
+                "Username" => strtolower(trim($_POST["username"])),
                 "Password" => trim($_POST["password"]),
                 "Confirm Password" => trim($_POST["confirmpassword"])
             );
@@ -106,7 +106,7 @@
         </form>
     </div>
     <div class="center">
-            <a href="./index.php?">Already have an account? Log in!</a>
+            <a class="sign-up-link" href="./index.php?">Already have an account? Log in!</a>
         </div>
             <div class="center">
         <div class="errors">
@@ -152,7 +152,7 @@
         </form>
     </div>
     <div class="center">
-            <a href="./index.php?">Already have an account? Log in!</a>
+            <a class="sign-up-link" href="./index.php?">Already have an account? Log in!</a>
         </div>
             <?php
         }

@@ -5,105 +5,184 @@ const messageScript = {
         const localFriendRequests = friendRequests;
         const localFriends = currentFriends;
         let requestedUser;
-
         let chatDown = false;
+        let currentID;
+        let fetchQueued = false;
+        let lastMod = null;
 
 
         const friendExpandedWrapper = document.getElementById("friendExpandedWrapper");
         const openChatExpandedLink = document.getElementById("openChatLink");
 
+        
+
+
         // CHECK IF CHAT WINDOW SHOULD BE OPEN
         const urlParams = new URLSearchParams(window.location.search);
         if(urlParams.get("openchat")){
             requestedUser = urlParams.get("openchat");
-            openChat();
+            openChat("bottom");
         }
         
-        function openChat(){
+        function openChat(scrollType){
             let fetchUrl = `data/messages/${requestedUser}_${localCurrentUser}.txt`;
-            CheckFileExist(fetchUrl);
+            CheckFileExist(fetchUrl, scrollType);
         }
-
+        ;
 
     // OPEN CHAT LINK LISTENERS
         openChatExpandedLink.addEventListener("click", (evt)=>{
            requestedUser = openChatExpandedLink.dataset.user;
             friendExpandedWrapper.style.transform = "translateY(-100%)";
-
-            let fetchUrl = `data/messages/${requestedUser}_${localCurrentUser}.txt`;
-            // OPEN CHAT TEXT VIA FETCH
-            CheckFileExist(fetchUrl);
+             openChat("bottom")
 
 
         });
 
         
+let realUrl;
 
-
-        function CheckFileExist(fetchUrl) {
+        function CheckFileExist(fetchUrl, scrollType) {
+                fetchQueued = true;
                 fetch(fetchUrl, {method: "HEAD", cache: "no-store"}).then(res => {
                     if (res.status == 404){
                         fetchUrl = `data/messages/${localCurrentUser}_${requestedUser}.txt`;
+                        realUrl = fetchUrl;
                         fetch(fetchUrl, {cache: "no-store"})
                         .then((response) => response.text())
-                        .then((text) => {getChats(text)});
+                        .then((text) => {getChats(text, scrollType)});
                     };
                     if (res.status == 200){
+                        realUrl = fetchUrl;
                         fetch(fetchUrl, {cache: "no-store"})
                         .then((response) => response.text())
-                        .then((text) => {getChats(text)});};
+                        .then((text) => {getChats(text, scrollType)});};
                    
                 }) 
             
         
         }
-
-        function getChats(chats){
+        let currentIDS = [];
+        function getChats(chats, scrollType){
             const mainChatWrapper = document.querySelector(".main-chat-wrapper");
             
-            dropChatElem();
+            showChatElem();
             
             const chatArray = chats.split("`");
             chatArray.pop();
 
             
-            let currentIDS = [];
+            
             const mainWrapperText = mainChatWrapper.querySelector(".wrapper-chats");
             mainWrapperText.innerHTML = "";
             chatArray.forEach((chat)=>{
                 const tempDiv = document.createElement("div");
                 const chatData = chat.split("~");
-                console.log(chatData)
                 const curClass = (chatData[0] == localCurrentUser) ? "chat-user" : "chat-friend";
                 tempDiv.className = curClass + " chat";
-                tempDiv.textContent = chatData[1];
+                tempDiv.innerHTML = chatData[1];
 
                 if(chatArray.length > 0){
                     currentIDS.push(parseFloat(chatData[2]));
                 }else{
                     currentIDS.push(0);
                 }
-
+                
                 const chatWrapper = document.createElement("div");
                 chatWrapper.className = "chat-wrapper";
                 chatWrapper.append(tempDiv);
                 mainWrapperText.append(chatWrapper);
+                
+                
                
             });
+            currentID = (currentIDS[currentIDS.length - 1] != null) ? (currentIDS[currentIDS.length - 1] + 1) : 0;
+            if((scrollType) == "bottom"){
+                mainWrapperText.scrollTop = mainWrapperText.scrollHeight;
+            }else{
+                mainWrapperText.scrollTop = parseFloat(scrollType);
+            }
+
             // Button Listener
-            const currentID = (currentIDS[currentIDS.length - 1] != null) ? (currentIDS[currentIDS.length - 1] + 1) : 0;
-        document.getElementById("chatSendButton").onclick = ()=>{
+        
+            document.getElementById("chatSendButton").onclick = ()=>{
             document.getElementById("chatForm").setAttribute("action", `index.php?openchat=${requestedUser}&chatid=${currentID}`);
             document.getElementById("chatForm").submit();
         };
+        // CHat input onenter post message
+        document.getElementById("chatInput").onkeydown = (evt)=>{
+            let shiftKey = evt.shiftKey;
+            if(((evt.code == "Enter") || (evt.code == "NumpadEnter")) && (shiftKey== false)){
+                document.getElementById("chatForm").setAttribute("action", `index.php?openchat=${requestedUser}&chatid=${currentID}`);
+            document.getElementById("chatForm").submit();
+                
+            }
+            
+        };
+            
+
+        fetchQueued = false;
         }
+
         
-        function dropChatElem(){
-            document.querySelector(".wrapper-chats").style.top = "0";
-            document.getElementById("chatInput").style.left = "0";
-            document.getElementById("chatSendButton").style.right = "0";
+
+        // CLOSE CHAT LISTENER
+
+        const closeChat =  document.getElementById("closeChat");
+        closeChat.addEventListener("click", ()=>{
+            removeChatElem();
+        });
+
+        
+        
+        
+        function showChatElem(){
+            chatDown = true;
+            document.querySelector(".main-chat-wrapper").style.display = "inline-block";
+            
         }
-    }
+        function removeChatElem(){
+            chatDown = false;
+            document.querySelector(".main-chat-wrapper").style.display = "none";
+            
+        }
+
+        function lasttMod(file){
+            
+            fetch(file, {
+                method: "HEAD",
+                cache: "no-store"
+            })
+            .then((res)=>{
+                if(lastMod == null){
+                    lastMod = res.headers.get("Last-Modified");
+                }else if(lastMod != res.headers.get("Last-Modified")){
+                    const wrapperChats = document.querySelector(".wrapper-chats");
+                    const userScroll = wrapperChats.scrollTop;
+                    const elemMaxScroll = wrapperChats.scrollHeight;
+                    const scrollAmt = (Math.floor(wrapperChats.clientHeight + userScroll) == Math.floor(elemMaxScroll)) ? "bottom" : userScroll;
+                    lastMod = res.headers.get("Last-Modified");
+                    openChat(scrollAmt);
+                }
+                
+            })
+        }
+        // REFRESH COUNTER/LISTENER
+        let refreshCounter = 1;
+        setInterval(()=>{
+            if(chatDown){
+                --refreshCounter;
+                if(refreshCounter == 0 && !fetchQueued){
+                    
+                    refreshCounter = 1;
+                    lasttMod(realUrl)
+                    
+                    
+                }
+            }
+        } ,1000);
+        
+    },
 
 };
 
