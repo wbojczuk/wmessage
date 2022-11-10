@@ -22,11 +22,9 @@ function send_friend_request($friend, $requester){
             remove_friend_request($friend, $requester);
 
             // CREATE MESSAGE FILE IF NOT CREATED
-        if(!file_exists("./data/messages/{$friend}_{$requester}.txt") || !file_exists("./data/messages/{$requester}_{$friend}.txt")){
-            $sorted_users = array();
-            $sorted_users[] = $requester;
-            $sorted_users[] = $friend;
+            $sorted_users = [$requester, $friend];
             sort($sorted_users);
+        if(!file_exists("./data/messages/{$sorted_users[0]}_{$sorted_users[1]}.txt")){
             file_put_contents("./data/messages/{$sorted_users[0]}_{$sorted_users[1]}.txt", "");
         }
         

@@ -29,9 +29,13 @@ const messageScript = {
             let sortedUsers = [requestedUser, localCurrentUser];
             sortedUsers.sort();
             fetchUrl = `data/messages/${sortedUsers[0]}_${sortedUsers[1]}.txt`;
+            fetchQueued = true;
             fetch(fetchUrl, {cache: "no-store"})
                 .then((response) => response.text())
-                .then((text) => {getChats(text, scrollType)});
+                .then((text) => {
+                    fetchQueued = false;
+                    getChats(text, scrollType);
+                });
         }
         ;
 
