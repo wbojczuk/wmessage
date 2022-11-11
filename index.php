@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/friends.css">
     <link rel="stylesheet" href="css/mail.css">
     <link rel="stylesheet" href="css/messaging.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
 <?php
