@@ -36,7 +36,7 @@ require_once("./inc/inc_user_data.php");
                     $friends_html .= "<div class='fl-person fl-friend' title='{$current_user[1]} {$current_user[2]}' data-title='{$current_user[0]}''></div>";
                     if($i == ($friends_length - 1)){
                         $friends_html .= "</div>";
-                    }else if(($i != 0) && (($i % 2) == 0)){
+                    }else if(($i != 0) && ((($i + 1) % 2) == 0)){
                         $friends_html .= "</div><div class='fl-wrapper'>";
                     }
                 
